@@ -1,4 +1,4 @@
-import * as actions from "../action/actions";
+import * as actions from "../constants";
 
 const initialState = {
     isLoading: false,
@@ -8,13 +8,13 @@ const initialState = {
 const SignUpReducer = (state = initialState, action) => {
     console.log(action.payload,"LLLLLLLLLLLLLLLLLL")
     switch (action.type) {
-        case actions.SignUpRequest:
+        case actions.SIGN_UP_REQUEST:
             return {
                 ...state,
                 isLoading: true,
             };
 
-        case actions.SignUpSuccess:
+        case actions.SIGN_UP_SUCCESS:
             return {
                 ...state,
                 isSignedUp: true,
@@ -22,7 +22,7 @@ const SignUpReducer = (state = initialState, action) => {
                 response: action.payload,
             };
 
-        case actions.SignUpError:
+        case actions.SIGN_UP_ERROR:
             return {
                 ...state,
                 isSignedUp: false,

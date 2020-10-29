@@ -6,26 +6,27 @@ const initialState = {
 };
 
 const LoginReducer = (state = initialState, action) => {
+    console.log(action.payload,"LLLLLLLLLLLLLLLLLL")
     switch (action.type) {
-        case actions.Login_Request:
+        case actions.LOGIN_REQUEST:
             return {
                 ...state,
                 isLoading: true,
             };
 
-        case actions.Login_Sucess:
+        case actions.LOGIN_SUCCESS:
             return {
                 ...state,
                 isLoggedIn: true,
                 isLoading: false,
-                response: action.payload.response,
+                response: action.payload,
             };
 
-        case actions.Login_Error:
+        case actions.LOGIN_ERROR:
             return {
                 isLoggedIn: false,
                 isLoading: false,
-                error: action.payload.error,
+                error: action.payload,
             };
 
         default:

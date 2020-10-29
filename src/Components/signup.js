@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Container, Navbar, Nav, Spinner } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { SignUpRequest } from "../Redux/action/actions";
+import Header from "./header";
 
 function Signup() {
 
@@ -14,7 +15,7 @@ function Signup() {
     const dispatch = useDispatch();
 
     const signupState = useSelector((state) => state.SignUpStatus)
-    console.log(signupState,"GGGGGGGGG");
+    console.log(signupState, "GGGGGGGGG");
 
     const handleSubmit = () => {
         let userSignUpData = {
@@ -30,16 +31,10 @@ function Signup() {
     return (
         <>
             <div>
-                <Navbar bg="light" variant="light">
-                    <Navbar.Brand href="#home">Poll Management System</Navbar.Brand>
-                    <Nav className="mr-auto">
-                    </Nav>
-                    <Link to="/">
-                        <Button className="float-right" variant="success">
-                            Login
-                    </Button>
-                    </Link>
-                </Navbar>
+                <Header
+                    buttonText={"Login"}
+                    link={"/"}
+                />
                 <Container>
                     <Form>
                         <Form.Group controlId="formBasicEmail">
@@ -85,10 +80,16 @@ function Signup() {
                                     role="status"
                                     aria-hidden="true"
                                 />) : null}
-                                {signupState.isLoading===true? null: <span>Sign Up</span>}
+                            {signupState.isLoading === true ? null : <span>Sign Up</span>}
                         </Button>
                         <Container>
-                            {!signupState.isSignedUp?"Adftgyhuj":null }
+                            {signupState.isSignedUp ? (
+                                <h6 style={{ color: "black" }}>
+                                    Registration Successful. Please login to continue...
+                                </h6>
+                            ) : (
+                                    <h6 style={{ color: "Red" }}>{signupState.error}</h6>
+                                )}
                         </Container>
                     </Form>
                 </Container>

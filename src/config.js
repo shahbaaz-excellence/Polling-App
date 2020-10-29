@@ -1,1 +1,0 @@
-export const BaseUrl="https://secure-refuge-14993.herokuapp.com"
