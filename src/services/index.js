@@ -1,0 +1,20 @@
+import axios from 'axios';
+import {BaseUrl} from "../config";
+
+const axiosCall=(method,url ,data,headers)=>{
+    let URL=`${BaseUrl}${url}`
+        if(method==="GET"){
+          return axios.get(URL,data,headers)
+        }
+        if(method==="POST"){
+          return  axios.post(URL,data,headers)
+        }
+        if(method==="PUT"){
+          return  axios.put(URL,data,headers)
+        }
+        if(method==="DELETE"){
+          return  axios.delete(URL,headers)
+        }
+}
+
+export default axiosCall;
