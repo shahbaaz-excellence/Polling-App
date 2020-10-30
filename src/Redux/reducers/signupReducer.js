@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const SignUpReducer = (state = initialState, action) => {
-    console.log(action.payload,"LLLLLLLLLLLLLLLLLL")
+    // console.log(action.payload,"LLLLLLLLLLLLLLLLLL")
     switch (action.type) {
         case actions.SIGN_UP_REQUEST:
             return {

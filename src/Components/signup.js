@@ -15,7 +15,7 @@ function Signup() {
     const dispatch = useDispatch();
 
     const signupState = useSelector((state) => state.SignUpStatus)
-    console.log(signupState, "GGGGGGGGG");
+    // console.log(signupState, "GGGGGGGGG");
 
     const handleSubmit = () => {
         let userSignUpData = {

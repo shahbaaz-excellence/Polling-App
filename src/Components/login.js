@@ -14,7 +14,7 @@ function Login(props) {
     const dispatch = useDispatch();
 
     const loginState = useSelector((state) => state.LoginStatus)
-    console.log(loginState, "GGGGGGGGG");
+    // console.log(loginState, "GGGGGGGGG");
 
     const handleSubmit = () => {
         let userCredentials = {

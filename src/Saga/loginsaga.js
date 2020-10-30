@@ -15,9 +15,9 @@ export function* loginSaga(action) {
             "POST",
             url,
         );
-        console.log(response,   "response from the API");
+        // console.log(response,   "response from the API");
         const { data } = response
-        console.log(data, "api data");
+        // console.log(data, "api data");
 
     
 
@@ -27,15 +27,15 @@ export function* loginSaga(action) {
             localStorage.setItem("token", data.token)
             localStorage.setItem("userType", user.role);
             
-            console.log(data.token,   "data tokennnnnnn")
-            console.log(user.role,   "user roleeeeeeeee");
+            // console.log(data.token,   "data tokennnnnnn")
+            // console.log(user.role,   "user roleeeeeeeee");
         }
         if (data.error == 1) {
-            console.log(data.message, "abcccccccccc")
+            // console.log(data.message, "abcccccccccc")
             yield put(LoginError(data.data))
         }
     } catch (error) {
-        console.log("Unexpected error occured");
+        // console.log("Unexpected error occured");
         yield put(LoginError("Unexpected error occured"))
     }
 }

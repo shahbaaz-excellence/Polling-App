@@ -16,18 +16,18 @@ export function* signUpSaga(action) {
             url,
         );
         const {data}=response
-        console.log(data, "api data");
+        // console.log(data, "api data");
 
         if(data.error==0){
-            console.log(data.data, "xyzzzzzz")
+            // console.log(data.data, "xyzzzzzz")
             yield put(SignUpSuccess(data.data))
         }
         if(data.error==1){
-            console.log(data.message, "abcccccccccc")
+            // console.log(data.message, "abcccccccccc")
             yield put(SignUpError(data.message))
         }
     } catch (error) {
-        console.log("Unexpected error occured");
+        // console.log("Unexpected error occured");
         yield put(SignUpError("Unexpected error occured"))
     }
 }

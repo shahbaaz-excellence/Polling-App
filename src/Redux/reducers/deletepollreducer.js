@@ -1,37 +1,33 @@
-import * as actions from "../constants"
+import * as actions from "../constants";
 
 const initialState = {
     isLoading: false,
-    isLoggedIn: false,
 };
 
-const LoginReducer = (state = initialState, action) => {
-    // console.log(action.payload,"LLLLLLLLLLLLLLLLLL")
+const DeletePollreducer = (state = initialState, action) => {
     switch (action.type) {
-        case actions.LOGIN_REQUEST:
+        case actions.DELETE_POLL_REQUEST:
             return {
                 ...state,
                 isLoading: true,
             };
 
-        case actions.LOGIN_SUCCESS:
+        case actions.DELETE_POLL_SUCCESS:
             return {
                 ...state,
-                isLoggedIn: true,
                 isLoading: false,
                 response: action.payload,
             };
 
-        case actions.LOGIN_ERROR:
+        case actions.DELETE_POLL_REQUEST:
             return {
-                isLoggedIn: false,
+                ...state,
                 isLoading: false,
-                error: action.payload,
+                error: action.payload
             };
-
         default:
             return state;
     }
 }
 
-export default LoginReducer;
+export default DeletePollreducer;
