@@ -5,6 +5,6 @@ export const SignUpRequest = createAction(actions.SIGN_UP_REQUEST);
 export const SignUpSuccess = createAction(actions.SIGN_UP_SUCCESS);
 export const SignUpError = createAction(actions.SIGN_UP_ERROR);
 
-export const LoginRequest = createAction(actions.Login_Request);
-export const LoginSuccess = createAction(actions.Login_Sucess);
-export const LoginError = createAction(actions.Login_Error);
+export const LoginRequest = createAction(actions.LOGIN_REQUEST);
+export const LoginSuccess = createAction(actions.LOGIN_SUCCESS);
+export const LoginError = createAction(actions.LOGIN_ERROR);
