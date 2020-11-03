@@ -11,7 +11,7 @@ export function* pollListSaga(action){
             "GET",
             url,
         );
-        console.log(response,   "response from the API");
+        // console.log(response,   "response from the API");
 
         if (response) {
             yield put (PollListSuccess(response.data.data))

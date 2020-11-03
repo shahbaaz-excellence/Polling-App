@@ -1,9 +1,107 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import Header from "./header";
+import { Link, useHistory } from "react-router-dom";
+import { Card, Container, Jumbotron, Button, Spinner } from 'react-bootstrap';
+import { PollListRequest } from '../Redux/action/actions';
+import { PollRequest } from "../Redux/action/actions";
 
 function GuestDashboard() {
+
+    const [error, seterror] = useState(false)
+    const [poll, setpoll] = useState([])
+    const [item, setitem] = useState()
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const dispatch1 = useDispatch();
+
+    useEffect(() => {
+        dispatch(PollListRequest());
+    });
+
+    const pollList = useSelector((state) => state.PollListStatus.poll)
+
+    useEffect(() => {
+        setpoll(pollList);
+    }, [pollList]);
+
+    const pollStatus = useSelector((state) =>
+        state.PollListStatus.isPollfetched
+    )
+
+    const handlePoll = (id, option) => {
+        let usertoken = localStorage.getItem("token");
+        let Poll = {
+            id: id,
+            option: option,
+            token: usertoken,
+        };
+        localStorage.setItem(id, option);
+        dispatch1(PollRequest(Poll));
+    };
+
+    const handleLogout = () => {
+        localStorage.clear();
+        history.push("/login");
+    };
+
+    useEffect(() => {
+        var item = poll[Math.floor(Math.random() * poll.length)];
+
+        if (item) {
+            // console.log(item.id)
+            setitem(item)
+        }
+
+    }, [poll.length])
+
+    const handledoublePollClick = (id) => {
+        if (localStorage.getItem(id)) {
+            seterror(true)
+        }
+    }
+
+    const refreshPage = () => {
+        window.location.reload(false);
+        //localStorage.setItem(item.id,""); 
+    }
+
     return (
         <div>
-            <h1>Guest Dashboard</h1>
+            <Header
+                buttonText={"Logout"}
+                // link={"/admindashboard"}
+                handleLogout={handleLogout}
+            />
+            <Jumbotron>
+                <Container>
+                    {pollStatus === false ? (
+                        <Spinner className="spinner" animation="border" variant="primary" />
+                    ) : null}
+                    {item &&
+                        (
+                            <Card className="Card1" onClick={() => handledoublePollClick(item.id)}>
+                                <Card.Title>Title : {item.title}</Card.Title>
+                                <Container>
+                                    {item.options.map((option, i) => (
+                                        <div key={i}>
+                                            <input
+                                                type="radio"
+                                                name={item.id}
+                                                onChange={() => {
+                                                    handlePoll(item.id, option.option);
+                                                }}
+                                            />
+                                            <label>{option.option}</label>
+                                        </div>
+                                    ))}
+                                </Container>
+                                <Button variant="primary" onClick={refreshPage}>Next</Button>
+                            </Card>
+                        )}
+                </Container>
+            </Jumbotron>
         </div>
     )
 }

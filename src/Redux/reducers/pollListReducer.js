@@ -8,7 +8,7 @@ const initialState = {
 };
 
 const PollListReducer = (state = initialState, action) => {
-    console.log(action.payload,  "action.payloaaaaaad")
+    // console.log(action.payload,  "action.payloaaaaaad")
     switch (action.type) {
         case actions.POLL_LIST_REQUEST:
             return{

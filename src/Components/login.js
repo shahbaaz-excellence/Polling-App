@@ -2,16 +2,17 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Container, Navbar, Nav, Spinner } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { LoginRequest } from "../Redux/action/actions";
 import Header from "./header";
 
-function Login(props) {
+function Login() {
 
     const [userName, setuserName] = useState("");
     const [password, setpassword] = useState("");
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const loginState = useSelector((state) => state.LoginStatus)
     // console.log(loginState, "GGGGGGGGG");
@@ -27,19 +28,19 @@ function Login(props) {
     }
 
     useEffect(() => {
-        if (loginState.isLoggedIn === true || localStorage.getItem("token")) {
-            if (loginState.response.toLowerCase() === "admin") {
-                props.history.push('/admindashboard');
+        if (localStorage.getItem("token")) {
+            if (loginState?.response?.toLowerCase() === "admin") {
+                history.push('/admindashboard');
                 localStorage.setItem("userType", loginState.response);
-            } else if (loginState.response.toLowerCase() === "guest") {
-                props.history.push('/guestdashboard');
+            } else if (loginState?.response?.toLowerCase() === "guest") {
+                history.push('/guestdashboard');
                 localStorage.setItem("userType", loginState.response);
             } else {
                 localStorage.clear();
-                props.history.push('/');
+                history.push('/');
             }
         }
-    }, [loginState.isLoggedIn])
+    })
 
     return (
         <>

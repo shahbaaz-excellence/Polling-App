@@ -11,12 +11,17 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { PollListRequest } from "../Redux/action/actions";
 import { DeletePollRequest } from "../Redux/action/actions"
+import DeletePoll from "./deletepoll";
 
 
 const AdminDashboard = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const [showDeletePoll, setshowDeletePoll] = useState(false);
+    const [deletePollid, setdeletePollid] = useState();
+    const [deletePolltitle, setdeletePolltitle] = useState();
 
     useEffect(() => {
         dispatch(PollListRequest());
@@ -25,25 +30,31 @@ const AdminDashboard = () => {
     const pollList = useSelector((state) =>
         state.PollListStatus.poll
     )
-    // console.log(pollList, "poll list state");
 
     const pollStatus = useSelector((state) =>
         state.PollListStatus.isPollfetched
     )
-    // console.log(pollStatus, "poll status");
 
-    const deletePoll=(pollId)=>{
-        // console.log(id , "dlete id")
+    const deletePollhandler = (title, id) =>{
+        setdeletePolltitle(title);
+        setdeletePollid(id);
+        setshowDeletePoll(true);
+    };
+
+    const deletePoll = () => {
         let poll_ID = {
-            id:pollId
+            id: deletePollid
         }
         dispatch(DeletePollRequest(poll_ID))
-        // setTimeout(dispatch(PollListRequest()),500)
+    }
+
+    const editPoll=(id)=>{
+        history.push(`/editpoll/${id}`);
     }
 
     const handleLogout = () => {
         localStorage.clear();
-        history.push("/");
+        history.push("/login");
     };
 
 
@@ -52,7 +63,7 @@ const AdminDashboard = () => {
             <Header
                 buttonText={"Logout"}
                 // link={"/admindashboard"}
-                handleLogout = {handleLogout}
+                handleLogout={handleLogout}
             />
             <Jumbotron>
                 <Container>
@@ -73,20 +84,30 @@ const AdminDashboard = () => {
                                     <Card.Title>Title : {item.title}</Card.Title>
                                     {item.options.map((option, index) => (
                                         <div key={index}>
-                                            <input type="radio" name={item._id}/>
+                                            <input type="radio" name={item._id} />
                                             <label> {option.option}</label>
                                             <label className="float-right">Votes: {option.vote}</label>
                                         </div>
                                     ))}
                                 </div>
                                 <hr />
-                                <Button variant="warning" >Edit Poll</Button>{' '}
+                                <Button variant="warning"
+                                    onClick={() => editPoll(item._id)}>
+                                    Edit Poll</Button>{' '}
                                 <Button variant="danger"
-                                onClick={()=>deletePoll(item._id)}>
-                                Delete Poll</Button>
+                                    onClick={() => deletePollhandler(item.title,item._id)}>
+                                    Delete Poll</Button>
                             </Card.Body>
                         </Card>
                     ))}
+                    <DeletePoll
+                        show={showDeletePoll}
+                        pollTitle={deletePolltitle}
+                        onCloseOption={() => setshowDeletePoll(false)}
+                        onDeletePoll={() => {
+                            deletePoll();
+                        }}
+                    />
                 </Container>
             </Jumbotron>
         </div>
