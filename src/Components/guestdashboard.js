@@ -10,15 +10,15 @@ function GuestDashboard() {
 
     const [error, seterror] = useState(false)
     const [poll, setpoll] = useState([])
-    const [item, setitem] = useState()
-
+    const [item, setItem] = useState()
+    const [next, setNext] = useState(false)
     const history = useHistory();
     const dispatch = useDispatch();
     const dispatch1 = useDispatch();
 
     useEffect(() => {
         dispatch(PollListRequest());
-    });
+    },[]);
 
     const pollList = useSelector((state) => state.PollListStatus.poll)
 
@@ -29,18 +29,18 @@ function GuestDashboard() {
     const pollStatus = useSelector((state) =>
         state.PollListStatus.isPollfetched
     )
-
-    const handlePoll = (id, option) => {
+    console.log(item,"aaaaaaaaaaaaaa");
+    const handlePoll = (option) => {
         let usertoken = localStorage.getItem("token");
         let Poll = {
-            id: id,
+            id: item._id,
             option: option,
             token: usertoken,
         };
-        localStorage.setItem(id, option);
+        // localStorage.setItem(id, option);
         dispatch1(PollRequest(Poll));
     };
-
+    console.log(item);
     const handleLogout = () => {
         localStorage.clear();
         history.push("/login");
@@ -51,7 +51,7 @@ function GuestDashboard() {
 
         if (item) {
             // console.log(item.id)
-            setitem(item)
+            setItem(item)
         }
 
     }, [poll.length])
@@ -88,16 +88,19 @@ function GuestDashboard() {
                                         <div key={i}>
                                             <input
                                                 type="radio"
-                                                name={item.id}
+                                                name="options"
                                                 onChange={() => {
-                                                    handlePoll(item.id, option.option);
+                                                    handlePoll(option.option);
+
+                                                    setNext(true);
                                                 }}
                                             />
                                             <label>{option.option}</label>
                                         </div>
                                     ))}
                                 </Container>
-                                <Button variant="primary" onClick={refreshPage}>Next</Button>
+                                {!next?null:                                
+                                <Button variant="primary" onClick={refreshPage}>Next</Button>}
                             </Card>
                         )}
                 </Container>

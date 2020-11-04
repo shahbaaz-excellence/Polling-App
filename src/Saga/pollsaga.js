@@ -14,7 +14,7 @@ export function* PollSaga(action) {
 
         let header = {
             "Content-Type": "application/json",
-            access_token: `${token}`,
+            access_token: token,
         }
 
         // const url = `/do_vote?id=${id}&option_text=${text}`,
@@ -28,7 +28,7 @@ export function* PollSaga(action) {
 
         let response = yield call(
             axios.get,
-            `${process.env.REACT_APP_BASE_URL}/do_vote?id=${id}&option_text=${text}`,
+            `https://secure-refuge-14993.herokuapp.com/do_vote?id=${id}&option_text=${text}`,
             { headers: header }
         );
 

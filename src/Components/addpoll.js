@@ -85,7 +85,7 @@ const AddPoll = () => {
                             <Form.Control
                                 type="text"
                                 placeholder="Enter your option here"
-                                value={options[i]}
+                                value={options[i]}                                
                                 onChange={(event) => handleOption(event, i)}
                             />
                             <Button
@@ -100,6 +100,7 @@ const AddPoll = () => {
                     ))}
 
                     {title ? (
+                        options[options.length-1]===""?null:
                         <Button onClick={addOption} variant="primary">
                             Add Options
                         </Button>

@@ -27,6 +27,17 @@ const AdminDashboard = () => {
         dispatch(PollListRequest());
     }, [])
 
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            if(localStorage.getItem("userType")==="Guest")
+                history.push('/guestdashboard');
+         } else {
+                localStorage.clear();
+                history.push('/');
+            }
+        
+    },[(localStorage.getItem("userType"))])
+
     const pollList = useSelector((state) =>
         state.PollListStatus.poll
     )
@@ -74,7 +85,7 @@ const AdminDashboard = () => {
                     </Link>
                     {pollStatus === false ? (
                         <center>
-                            <Spinner className="spinner" animation="grow" variant="dark" />
+                            <Spinner className="spinner" animation="border" variant="dark" />
                         </center>
                     ) : null}
                     {pollList.map((item) => (
@@ -106,6 +117,7 @@ const AdminDashboard = () => {
                         onCloseOption={() => setshowDeletePoll(false)}
                         onDeletePoll={() => {
                             deletePoll();
+                            setshowDeletePoll(false);
                         }}
                     />
                 </Container>

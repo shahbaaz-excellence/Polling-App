@@ -7,8 +7,9 @@ const DeletePoll = (props) => {
       <Container>
         <Modal show={props.show} onHide={props.onCloseOption}>
           <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to delete {props.pollTitle} ?</Modal.Title>
+            <Modal.Title>Are you sure you want to delete?</Modal.Title>
           </Modal.Header>
+          <Modal.Body>{props.pollTitle} </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={props.onCloseOption}
             >
