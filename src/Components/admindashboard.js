@@ -39,7 +39,7 @@ const AdminDashboard = () => {
     },[(localStorage.getItem("userType"))])
 
     const pollList = useSelector((state) =>
-        state.PollListStatus.poll
+        state.PollListStatus.poll.reverse()
     )
 
     const pollStatus = useSelector((state) =>
@@ -67,6 +67,10 @@ const AdminDashboard = () => {
         localStorage.clear();
         history.push("/login");
     };
+
+    useEffect(() => {
+        dispatch(PollListRequest());
+    }, [pollList])
 
 
     return (

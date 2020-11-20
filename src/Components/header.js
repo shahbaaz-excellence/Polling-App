@@ -7,7 +7,7 @@ const Header = (props) => {
 
     return (
         <div>
-            <Navbar bg="light" variant="light">
+            <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="#home">Poll Management System</Navbar.Brand>
                 <Nav className="mr-auto">
                 </Nav>
